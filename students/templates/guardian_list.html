@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guardian List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa; /* neutral background */
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card {
+            border-radius: 10px;
+        }
+        .btn-primary {
+            background-color: #e75480 !important; /* professional pink accent */
+            border-color: #e75480 !important;
+        }
+        .btn-primary:hover {
+            background-color: #d9436f !important;
+            border-color: #d9436f !important;
+        }
+        .btn-outline-danger:hover {
+            background-color: #dc3545 !important;
+            color: #fff !important;
+        }
+        .text-primary {
+            color: #e75480 !important;
+        }
+        .table thead {
+            background-color: #e75480;
+            color: #fff;
+        }
+        .table tbody tr:hover {
+            background-color: #fce4ec; /* light pink hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-primary text-center mb-4">Guardian List</h2>
+
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Relationship</th>
+                            <th>Contact Number</th>
+                            <th>Student Contact Number</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for guardian in guardians %}
+                        <tr>
+                            <td>{{ guardian.Last_name }}, {{ guardian.First_name }}</td>
+                            <td>{{ guardian.Relationships }}</td>
+                            <td>{{ guardian.Guardian_Contact }}</td>
+                            <td>{{ guardian.Student_Contact }}</td>
+                            <td>
+                                <a href="{% url 'edit_guardian' guardian.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'delete_guardian' guardian.id %}" 
+                                   onclick="return confirm('Are you sure you want to delete this?')" 
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="{% url 'create_guardian' %}" class="btn btn-primary">Add New</a>
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
